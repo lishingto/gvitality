@@ -72,8 +72,9 @@ public class RepositoryReadService extends BaseService {
 	}
 
 	@Override
-	public void run() throws Exception{
-		process(Math.round(Math.random() * 99999999));
+	public boolean run() throws Exception{
+		process(Math.round(Math.random() * 52700000));
+		return true;
 	}
 
 	public static void main(String[] args) {

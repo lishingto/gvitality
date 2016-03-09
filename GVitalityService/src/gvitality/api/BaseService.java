@@ -14,6 +14,7 @@ import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.gson.Gson;
 
+import gvitality.api.parse.Contributor;
 import gvitality.api.parse.RateLimit;
 import gvitality.api.parse.Repository;
 import gvitality.api.parse.Status;
@@ -32,13 +33,18 @@ public abstract class BaseService {
 
 	}	
 	
+	public static class ContributorList extends LinkedList<Contributor>{
+		
+	}
+	
 	public void start(){
-		while (true) {
+		boolean isRun = true;
+		while (isRun) {
 			try {
 				RateLimit l = getRateLmit();
 
 				if (l.resources.core.remaining > 0) {
-					run();
+					isRun = run();
 				} else {
 					try {
 						long delay = (l.resources.core.reset * 1000) - (new Date()).getTime();
@@ -62,14 +68,14 @@ public abstract class BaseService {
 
 		RateLimit rlimit = gson.fromJson(response, RateLimit.class);
 		
-		Date reset = new Date(rlimit.resources.core.reset);
+		Date reset = new Date(rlimit.resources.core.reset*1000);
 		
 		System.out.println(
 				"Limit: " + rlimit.resources.core.limit + " | Remanining: " + rlimit.resources.core.remaining + " | Reset: " + reset.toString());
 		return rlimit;
 	}
 	
-	public abstract void run() throws Exception;
+	public abstract boolean run() throws Exception;
 	
 	public BaseService() throws Exception{
 		requestFactory = HTTP_TRANSPORT.createRequestFactory(new HttpRequestInitializer() {
