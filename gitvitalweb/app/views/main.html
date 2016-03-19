@@ -1,0 +1,59 @@
+<div class="jumbotron">
+    <h1>GitVital</h1>
+    <h2>Predicting Repository Health using Data Mining</h2>
+</div>
+
+<div class="row marketing">
+    <h4>Search for Repository</h4>
+    <form class="form" ng-submit="main.submit()" role="search">
+        <div class="input-group input-group-lg">
+            <input type="text" class="form-control" ng-model="main.search" placeholder="Search" name="srch-term" id="srch-term" value="Java">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    </form>
+    <br />
+    <span us-spinner spinner-on="main.loading"></span>
+    <div class="container" ng-hide="main.loading">
+        <div class="row">
+            <div class="col-md-9">
+                <table ng-table="main.tableParams" class="table table-condensed table-bordered table-striped">
+                    <tr ng-repeat="repo in $data">
+                        <td data-title="'Repository'">
+                            <a ui-sref="view({repoName : repo.full_name})">
+                                <img style="width:20px; height:20px" class="img-rounded" ng-src="{{repo.owner.avatar_url}}">&nbsp; {{repo.full_name}}
+                            </a>
+                        </td>
+                        <td data-title="'Description'">{{repo.description}}</td>
+                        <td data-title="'Lang'">{{repo.language}}</td>
+                        <td data-title="'Forks'">{{repo.forks_count}}</td>
+                        <td data-title="'Stars'">{{repo.stargazers_count}}</td>
+                        <td data-title="'Updated'">{{main.fromNow(repo.updated_at)}}</td>
+                        <td data-title="'Add'">
+                            <button class="btn btn-primary glyphicon glyphicon-plus" ng-click="main.add(repo)"></button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <h4>Classify List</h4>
+                <button class="btn btn-success" ng-click="main.sendList()"><i class="glyphicon glyphicon-play"></i> Run</button>
+                <div class="well">
+                    <div class="panel panel-primary" ng-repeat="sel in main.classifyList">
+                        <div class="panel-heading"></div>
+                        <div class="panel-body">
+                            <span style="width:80%; display:inline-block;">
+                                <img style="width:20px; height:20px" class="img-rounded" ng-src="{{sel.owner.avatar_url}}">
+                                {{sel.full_name}}
+                            </span>
+                            <span style="width:20%;">
+                                <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="main.remove(sel)"></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<h1>Classify List</h1>
+<span us-spinner spinner-on="classify.loading"></span>
+<div ng-hide="classify.loading">
+    <div class="panel" ng-repeat="repo in classify.procList" ng-class="repo.isActive==='true'?'panel-success':'panel-danger'">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+            <i class="glyphicon" ng-class="repo.isActive==='true'?'glyphicon-ok':'glyphicon-remove'"></i>&nbsp;
+            <img style="width:20px; height:20px" class="img-rounded" ng-src="{{repo.repo.owner.avatar_url}}">&nbsp;    
+            {{repo.gitName}}
+            </h1>
+        </div>
+        <div class="panel-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4" style="font-size:1.5em;">                        
+                       Classified: <bool-label condition="repo.isActive==='true'"></bool-label>
+                    </div>
+                    <div class="col-md-4" style="font-size:1.5em;">
+                        Updated: <span class="label" ng-class="repo.isUpdated?'label-success':'label-danger'">
+                            <i class="glyphicon" ng-class="repo.isUpdated?'glyphicon-ok':'glyphicon-remove'"></i> {{repo.updatedDays}}
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-info" href="#" ui-sref="view({'repoName':repo.gitName})" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> Classify Details</a>
+                            <a class="btn btn-default" href="#" ng-href="{{repo.repo.html_url}}" target="_blank"><i class="glyphicon glyphicon-globe"></i> Visit Github Page</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 10px;">
+                    <div class="col-md-12">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Language</th>
+                                <th>Stargazers</th>
+                                <th>Forks</th>
+                                <th>Open Issues</th>
+                                <th>Readme Size</th>
+                                <th>Repo Size</th>
+                                <th>Desc. Length</th>
+                                <th># Contributors</th>
+                            </tr>
+                            <tr>
+                                <td>{{repo.language}}</td>
+                                <td>{{repo.stargazers}}</td>
+                                <td>{{repo.forks_count}}</td>
+                                <td>{{repo.open_issues_count}}</td>
+                                <td>{{repo.readmeSize}}</td>
+                                <td>{{repo.SizeKb}}</td>
+                                <td>{{repo.DescLen}}</td>
+                                <td>{{repo.numOfContributors}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="well">
+                            {{repo.repo.description}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

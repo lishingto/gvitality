@@ -1,0 +1,37 @@
+<h1>Training Data Set</h1>
+
+<span us-spinner spinner-on="data.loading"></span>
+<div ng-hide="data.loading">
+    <h2>Average Values</h2>
+    <table class="table table-bordered">
+        <tr>
+            <th>Repository Size</th>
+            <th>Stargazers</th>
+            <th>Fork Count</th>
+            <th>Readme Size</th>
+            <th>Description Length</th>
+            <th>Open Issues Count</th>
+        </tr>
+        <tr>
+            <td>{{data.avgSizeKb}}</td>
+            <td>{{data.avgStargazers}}</td>
+            <td>{{data.avgForks}}</td>
+            <td>{{data.avgReadmeSize}}</td>
+            <td>{{data.avgDescLen}}</td>
+            <td>{{data.avgOpenIssues}}</td>
+        </tr>
+    </table>
+
+    <h2>Data View</h2>
+    <div style="overflow-x:auto">
+    <table ng-table="data.tableParams" class="table table-condensed table-bordered table-striped">
+        <tr>
+            <th ng-repeat="key in data.columns">{{key}}</th>
+        </tr>
+        <tr ng-repeat="repo in $data">
+            <td ng-repeat="key in data.columns">{{repo[key]}}</td>
+        </tr>
+    </table>
+        
+    </div>
+</div>

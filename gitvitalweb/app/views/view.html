@@ -1,0 +1,211 @@
+<h1>
+    <img style="wdith:80px; height:80px" ng-src="{{view.repo.owner.avatar_url}}" class="img-rounded">
+    {{view.repoName}}
+    <a class="btn btn-default" ng-href="{{view.repo.html_url}}" target="_blank">Visit Github Page</a>
+</h1>
+<h3>Classify Repository Instance</h3>
+
+<span us-spinner spinner-on="view.loading"></span>
+
+<div ng-hide="view.loading">
+    
+    <div class="well">{{view.repo.description}}</div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+
+                <h1>
+                    <span class="label" ng-class="{'label-success': view.isActive, 'label-danger': !view.isActive}">
+    <i class="glyphicon" ng-class="{'glyphicon-ok': view.isActive, 'glyphicon-remove': !view.isActive}"></i> : {{view.isActive ? "This repository is healthy":"This repository could be better"}}
+    </span>
+                </h1>
+            </div>
+            <div class="col-md-6">
+                <h1>
+                    <span class="label" ng-class="view.isUpdated?'label-success':'label-danger'">
+    <i class="glyphicon" ng-class="view.isUpdated?'glyphicon-ok':'glyphicon-remove'"></i> : Updated {{view.updatedDays}}
+    </span>
+                </h1>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Classify Instance Data</h2>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Label</th>
+                        <th>Value</th>
+                        <th>Check</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            Programming Language
+                        </td>
+                        <td>
+                            {{view.classify.language}}
+                        </td>
+                        <td>
+                            -
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Stargazers / Watchers
+                        </td>
+                        <td>
+                            {{view.classify.stargazers}}
+                        </td>
+                        <td>
+                            <Bool-Label data-condition="view.classify.stargazers > view.threshold.stargazers"></Bool-Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Forks Count
+                        </td>
+                        <td>
+                            {{view.classify.forks_count}}
+                        </td>
+                        <td>
+
+                            <Bool-Label data-condition="view.classify.forks_count > view.threshold.forks_count"></Bool-Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Open Issues Count
+                        </td>
+                        <td>
+                            {{view.classify.open_issues_count}}
+                        </td>
+                        <td>
+                            <Bool-Label data-condition="view.classify.open_issues_count > view.threshold.open_issues_count"></Bool-Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Read Me Size
+                        </td>
+                        <td>
+                            {{view.classify.readmeSize}}
+                        </td>
+                        <td>
+                            <Bool-Label data-condition="view.classify.readmeSize > view.threshold.readmeSize"></Bool-Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Repository Size
+                        </td>
+                        <td>
+                            {{view.classify.SizeKb}}
+                        </td>
+                        <td>
+                            <Bool-Label data-condition="view.classify.SizeKb > view.threshold.SizeKb"></Bool-Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Desciption Length
+                        </td>
+                        <td>
+                            {{view.classify.DescLen}}
+                        </td>
+                        <td>
+                            <Bool-Label data-condition="view.classify.DescLen > view.threshold.DescLen"></Bool-Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Number of Contributors
+                        </td>
+                        <td>
+                            {{view.classify.numOfContributors}}
+
+                        </td>
+                        <td>
+                            <Bool-Label data-condition="view.classify.numOfContributors > view.threshold.numOfContributors"></Bool-Label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2>Other Data from GitHub API</h2>
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Label</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            Specified Language
+                        </td>
+                        <td>
+                            {{view.repo.language}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Default Branch
+                        </td>
+                        <td>
+                            {{view.repo.default_branch}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Has Downloads
+                        </td>
+                        <td>
+                            {{view.repo.has_downloads}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Has Wiki
+                        </td>
+                        <td>
+                            {{view.repo.has_wiki}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Has Pages
+                        </td>
+                        <td>
+                            {{view.repo.has_pages}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Created At
+                        </td>
+                        <td>
+                            {{view.repo.created_at}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Pushed At
+                        </td>
+                        <td>
+                            {{view.repo.pushed_at}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Updated At
+                        </td>
+                        <td>
+                            {{view.repo.updated_at}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
