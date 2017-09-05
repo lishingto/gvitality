@@ -1,0 +1,9 @@
+FROM node:6-alpine
+
+RUN npm install -g grunt-cli bower
+
+COPY . /gvital
+
+EXPOSE 80
+
+CMD ["/bin/bash", "/gvital/docker_entrypoint.sh"]

@@ -1,0 +1,16 @@
+FROM tomcat:8.5.20-jre8-alpine
+
+RUN \
+apk update && \
+apk add --no-cache mongodb unzip && \
+rm /usr/bin/mongoperf
+
+COPY target/*.war /usr/local/tomcat/webapps
+VOLUME /data
+
+EXPOSE 8080
+
+COPY db.zip /
+COPY docker_entrypoint.sh /
+
+CMD ["/bin/bash", "/docker_entrypoint.sh"]
